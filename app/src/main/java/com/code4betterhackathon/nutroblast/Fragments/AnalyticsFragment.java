@@ -2,14 +2,21 @@ package com.code4betterhackathon.nutroblast.Fragments;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.EmbossMaskFilter;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.androidplot.pie.PieChart;
+import com.androidplot.pie.PieRenderer;
 import com.androidplot.pie.Segment;
+import com.androidplot.pie.SegmentFormatter;
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.PointLabelFormatter;
 import com.androidplot.xy.SimpleXYSeries;
@@ -29,6 +36,9 @@ public class AnalyticsFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+
+    private TextView donutSizeTextView;
+    private SeekBar donutSizeSeekBar;
 
     private ArrayList<Integer> colorList = new ArrayList<Integer>();
     private PieChart pie;
@@ -59,6 +69,10 @@ public class AnalyticsFragment extends Fragment {
                 {4, 6, 3, 8, 2, 10},
                 {1, 2, 3, 4, 5, 6}};
         drawXYGraph("MySpecialGraph", labelArray, valuesArray, savedInstanceState, rootView);
+
+//        String[] labelArray = new String[] {"dicks", "butts", "dickbutts"};
+//        Number[] valuesArray = new Number[] {1, 4, 10};
+//        drawPieChart("MySpecialGraph", labelArray, valuesArray, savedInstanceState, rootView);
 
         return rootView;
     }
@@ -101,6 +115,84 @@ public class AnalyticsFragment extends Fragment {
         plot.setDomainStep(XYStepMode.INCREMENT_BY_VAL, 1);
     }
 
+    public void drawPieChart(String graphTitle, String[] labelArray, Number[] valuesArray, Bundle savedInstanceState, View rootView) {
+        if (labelArray.length != valuesArray.length) {
+            new Exception("labelArray must be equal in length to valuesArray");
+        }
+
+        if (savedInstanceState != null) {
+            colorList = savedInstanceState.getIntegerArrayList("KEY_COLORLIST");
+        } else {
+            Random random = new Random();
+            for (int i = 0; i < labelArray.length * 3; i++) {
+                colorList.add(random.nextInt(256));
+            }
+        }
+
+//        setContentView(R.layout.pie_chart);
+
+        // initialize our XYPlot reference:
+        pie = (PieChart) rootView.findViewById(R.id.mySimplePieChart);
+
+        // detect segment clicks:
+        pie.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                PointF click = new PointF(motionEvent.getX(), motionEvent.getY());
+                if (pie.getPieWidget().containsPoint(click)) {
+                    Segment segment = pie.getRenderer(PieRenderer.class).getContainingSegment(click);
+                    if (segment != null) {
+                        // handle the segment click...for now, just print
+                        // the clicked segment's title to the console:
+                        System.out.println("Clicked Segment: " + segment.getTitle());
+                    }
+                }
+                return false;
+            }
+        });
+
+        donutSizeSeekBar = (SeekBar) rootView.findViewById(R.id.donutSizeSeekBar);
+
+        donutSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                pie.getRenderer(PieRenderer.class).setDonutSize(seekBar.getProgress() / 100f,
+                        PieRenderer.DonutMode.PERCENT);
+                pie.redraw();
+                updateDonutText();
+            }
+        });
+
+        donutSizeTextView = (TextView) rootView.findViewById(R.id.donutSizeTextView);
+        updateDonutText();
+
+        EmbossMaskFilter emf = new EmbossMaskFilter(
+                new float[]{1, 1, 1}, 0.4f, 10, 8.2f);
+
+        for (int i = 0, j = 0; i < labelArray.length; i++, j += 3) {
+            s1 = new Segment(labelArray[i], valuesArray[i]);
+            SegmentFormatter sf1 = new SegmentFormatter(
+                    Color.argb(255, colorList.get(j), colorList.get(j + 1), colorList.get(j + 2)),
+                    255);
+//            sf1.configure(getApplicationContext(), R.xml.pie_segment_formatter1);
+
+            sf1.getFillPaint().setMaskFilter(emf);
+            pie.addSeries(s1, sf1);
+        }
+
+        pie.setTitle(graphTitle);
+        pie.getBorderPaint().setColor(Color.TRANSPARENT);
+        pie.getBackgroundPaint().setColor(Color.TRANSPARENT);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Always call the superclass so it can save the view hierarchy state
@@ -108,7 +200,7 @@ public class AnalyticsFragment extends Fragment {
         savedInstanceState.putIntegerArrayList("KEY_COLORLIST", colorList);
     }
 
-//    protected void updateDonutText() {
-//        donutSizeTextView.setText(donutSizeSeekBar.getProgress() + "%");
-//    }
+    protected void updateDonutText() {
+        donutSizeTextView.setText(donutSizeSeekBar.getProgress() + "%");
+    }
 }
