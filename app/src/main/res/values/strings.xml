@@ -26,4 +26,8 @@
 
     <string name="focus_on_card">Focus On Goals</string>
     <string name="summary_report">Summary Report</string>
+
+    <!-- About Screen -->
+    <string name="about">NutroBlast - Ulster Museum Hackathon 2015</string>
+    <string name="version">Version 1.0</string>
 </resources>
