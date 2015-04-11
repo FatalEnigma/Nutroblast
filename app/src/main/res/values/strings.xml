@@ -13,6 +13,17 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Summary Screen -->
+    <string name="about_you_card">About You</string>
+    <string name="name">Name:</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="height">Height:</string>
+    <string name="height_centimetres">cm</string>
+    <string name="weight">Weight:</string>
+    <string name="weight_kg">kg</string>
+
+    <string name="focus_on_card">Focus On Goals</string>
+    <string name="summary_report">Summary Report</string>
 </resources>
