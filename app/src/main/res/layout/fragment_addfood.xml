@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="false"
+    android:id="@+id/addFoodScrollView"
+    android:background="@color/green"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Add Food"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView
+            style="@style/summaryScreenCards"
+            android:id="@+id/addFood_card_view">
+
+            <TextView
+                style="@style/summaryCardTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/AddDiet"
+                android:id="@+id/summaryTitle" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/addFood"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="#fff"
+                    android:id="@+id/buttonAddFood"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignLeft="@+id/buttonSearchFoods" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/searchFoods"
+                    android:textColor="#fff"
+                    android:id="@+id/buttonSearchFoods"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/scanBarcode"
+                    android:textColor="#fff"
+                    android:id="@+id/buttonScanBarcode"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignRight="@+id/buttonSearchFoods" />
+
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/summaryScreenCards"
+            android:id="@+id/addMeal_card_view"
+            android:layout_width="374dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="-5dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Add a meal"
+                android:backgroundTint="#00479f06"
+                android:background="#00479f06"
+                android:textSize="20dp"
+                android:id="@+id/AddMealButton" />
+
+        </android.support.v7.widget.CardView>
+
+
+
+    </LinearLayout>
+</ScrollView>
