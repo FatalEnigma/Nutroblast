@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -97,16 +99,15 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                        getString(R.string.title_section4)
-                }));
+        ArrayList<DrawerItem> dataList = new ArrayList<DrawerItem>();
+        dataList.add(new DrawerItem(getString(R.string.title_section1), R.drawable.ic_drawer));
+        dataList.add(new DrawerItem(getString(R.string.title_section2), R.drawable.ic_drawer));
+        dataList.add(new DrawerItem(getString(R.string.title_section3), R.drawable.ic_drawer));
+        dataList.add(new DrawerItem(getString(R.string.title_section4), R.drawable.ic_drawer));
+        mDrawerListView.setAdapter(new CustomDrawerAdapter(
+                getActivity(),
+                R.layout.custom_drawer_item,
+                dataList));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
