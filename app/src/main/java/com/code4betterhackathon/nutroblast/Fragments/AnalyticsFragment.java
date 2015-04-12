@@ -43,6 +43,7 @@ public class AnalyticsFragment extends Fragment {
     private ArrayList<Integer> colorList = new ArrayList<Integer>();
     private PieChart pie;
     private Segment s1;
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -63,16 +64,15 @@ public class AnalyticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_analytics, container, false);
 
-        String[] labelArray = new String[] {"Calorie Intake", "Iron Intake", "Glucose Intake"};
-        Number[][] valuesArray = new Number[][] {
+        String[] labelArray = new String[]{"Calorie Intake", "Iron Intake", "Glucose Intake"};
+        Number[][] valuesArray = new Number[][]{
                 {1, 8, 5, 2, 7, 4},
                 {4, 6, 3, 8, 2, 10},
                 {1, 2, 3, 4, 5, 6}};
         drawXYGraph("My Nutrient Records", labelArray, valuesArray, savedInstanceState, rootView);
 
-//        String[] labelArray = new String[] {"dicks", "butts", "dickbutts"};
-//        Number[] valuesArray = new Number[] {1, 4, 10};
-//        drawPieChart("MySpecialGraph", labelArray, valuesArray, savedInstanceState, rootView);
+        Number[] valuesArray2 = new Number[]{1, 4, 10};
+        drawPieChart("My Nutrient Records 2", labelArray, valuesArray2, savedInstanceState, rootView);
 
         return rootView;
     }
@@ -85,15 +85,15 @@ public class AnalyticsFragment extends Fragment {
     }
 
     public void drawXYGraph(String graphTitle, String[] labelArray, Number[][] valuesArray, Bundle savedInstanceState, View rootView) {
-        if(labelArray.length!=valuesArray.length) {
+        if (labelArray.length != valuesArray.length) {
             new Exception("labelArray must be equal in length to valuesArray");
         }
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             colorList = savedInstanceState.getIntegerArrayList("KEY_COLORLIST");
         } else {
             Random random = new Random();
-            for(int i=0; i<labelArray.length*3; i++) {
+            for (int i = 0; i < labelArray.length * 3; i++) {
                 colorList.add(random.nextInt(256));
             }
         }
@@ -101,12 +101,12 @@ public class AnalyticsFragment extends Fragment {
         // initialize our XYPlot reference:
         XYPlot plot = (XYPlot) rootView.findViewById(R.id.mySimpleXYPlot);
 
-        for(int i=0, j=0; i<labelArray.length; i++, j+=3) {
+        for (int i = 0, j = 0; i < labelArray.length; i++, j += 3) {
             XYSeries series = new SimpleXYSeries(Arrays.asList(valuesArray[i]), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, labelArray[i]);
 
             LineAndPointFormatter seriesFormat = new LineAndPointFormatter(
-                    Color.argb(255, colorList.get(j), colorList.get(j+1), colorList.get(j+2)),
-                    Color.argb(255, colorList.get(j), colorList.get(j+1), colorList.get(j+2)),
+                    Color.argb(255, colorList.get(j), colorList.get(j + 1), colorList.get(j + 2)),
+                    Color.argb(255, colorList.get(j), colorList.get(j + 1), colorList.get(j + 2)),
                     Color.argb(0, 0, 0, 0),
                     new PointLabelFormatter());
             plot.addSeries(series, seriesFormat);
