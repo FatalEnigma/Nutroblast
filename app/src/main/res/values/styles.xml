@@ -8,7 +8,7 @@
     <style name="summaryCardTitle">
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/green</item>
     </style>
 
     <style name="summaryCardContents">
@@ -27,6 +27,15 @@
         <item name="contentPadding">6dp</item>
         <item name="cardElevation">6dp</item>
         <item name="cardBackgroundColor">#ffffff</item>
+    </style>
+
+    <style name="AcceptButton">
+        <item name="android:background">@drawable/accept_button</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
     </style>
 
     <style name="sample_activity">

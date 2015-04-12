@@ -1,5 +1,6 @@
 package com.code4betterhackathon.nutroblast;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
@@ -7,11 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 
 import com.code4betterhackathon.nutroblast.Fragments.AboutFragment;
 import com.code4betterhackathon.nutroblast.Fragments.AddFoodFragment;
 import com.code4betterhackathon.nutroblast.Fragments.AnalyticsFragment;
-import com.code4betterhackathon.nutroblast.Fragments.SummaryFragment;
+import com.code4betterhackathon.nutroblast.Fragments.EditDetailsFragment;
 
 
 public class MainActivity extends ActionBarActivity
@@ -27,6 +29,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
     }
 
     @Override
@@ -51,7 +57,7 @@ public class MainActivity extends ActionBarActivity
             case 0:
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, SummaryFragment.newInstance(position + 1))
+                        .replace(R.id.container, AnalyticsFragment.newInstance(position + 1))
                         .commit();
                 break;
 
@@ -64,7 +70,7 @@ public class MainActivity extends ActionBarActivity
             case 2:
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, AnalyticsFragment.newInstance(position + 1))
+                        .replace(R.id.container, EditDetailsFragment.newInstance(position + 1))
                         .commit();
                 break;
             case 3:

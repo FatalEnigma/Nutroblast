@@ -63,12 +63,12 @@ public class AnalyticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_analytics, container, false);
 
-        String[] labelArray = new String[] {"dicks", "butts", "dickbutts"};
+        String[] labelArray = new String[] {"Calorie Intake", "Iron Intake", "Glucose Intake"};
         Number[][] valuesArray = new Number[][] {
                 {1, 8, 5, 2, 7, 4},
                 {4, 6, 3, 8, 2, 10},
                 {1, 2, 3, 4, 5, 6}};
-        drawXYGraph("MySpecialGraph", labelArray, valuesArray, savedInstanceState, rootView);
+        drawXYGraph("My Nutrient Records", labelArray, valuesArray, savedInstanceState, rootView);
 
 //        String[] labelArray = new String[] {"dicks", "butts", "dickbutts"};
 //        Number[] valuesArray = new Number[] {1, 4, 10};
