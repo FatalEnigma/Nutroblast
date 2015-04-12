@@ -3,7 +3,7 @@
 
     <string name="title_section1">Summary</string>
     <string name="title_section2">Add Food</string>
-    <string name="title_section3">Edit Details</string>
+    <string name="title_section3">My Profile</string>
     <string name="title_section4">About</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -27,7 +27,8 @@
 
     <string name="focus_on_card">Focus On Goals</string>
     <string name="summary_report">Summary Report</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+   
     <string name="scanBarcode">Scan Barcode</string>
     <string name="searchFoods">Search Foods</string>
     <string name="addFood">Add Food</string>

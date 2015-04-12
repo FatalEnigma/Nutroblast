@@ -1,5 +1,6 @@
 package com.code4betterhackathon.nutroblast;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 
 import com.code4betterhackathon.nutroblast.Fragments.AboutFragment;
 import com.code4betterhackathon.nutroblast.Fragments.AddFoodFragment;
@@ -27,6 +29,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
     }
 
     @Override
