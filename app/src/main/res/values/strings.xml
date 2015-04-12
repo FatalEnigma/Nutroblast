@@ -3,7 +3,7 @@
 
     <string name="title_section1">Summary</string>
     <string name="title_section2">Add Food</string>
-    <string name="title_section3">Analytics</string>
+    <string name="title_section3">Edit Details</string>
     <string name="title_section4">About</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -16,6 +16,7 @@
     <!-- Summary Screen -->
     <string name="about_you_card">About You</string>
     <string name="name">Name:</string>
+    <string name="age">Age:</string>
     <string name="gender">Gender:</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -26,13 +27,24 @@
 
     <string name="focus_on_card">Focus On Goals</string>
     <string name="summary_report">Summary Report</string>
-    <!-- TODO: Remove or change this placeholder text -->
-   
+
     <string name="scanBarcode">Scan Barcode</string>
     <string name="searchFoods">Search Foods</string>
     <string name="addFood">Add Food</string>
     <string name="AddMeal">Add a meal</string>
     <string name="AddDiet">Add Diet</string>
+    <string name="iron_intake">Iron Intake</string>
+    <string name="calorie_control">Calorie Control</string>
+    <string-array name="weight_setting_array">
+        <item>Weight Gain</item>
+        <item>Weight Loss</item>
+    </string-array>
+    <string name="glucose">Glucose Intake</string>
+    <string name="cholesterol">Cholesterol</string>
+    <string name="accept_button">Update Details</string>
+
+
+    <string name="daily_requirement_report">Daily Requirement Report</string>
 
     <!-- About Screen -->
     <string name="about">NutroBlast - Ulster Museum Hackathon 2015</string>

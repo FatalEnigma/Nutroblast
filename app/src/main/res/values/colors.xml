@@ -2,4 +2,11 @@
 <resources>
 
     <item name="green" type="color">#ff479f06</item>
+    <item name="dark_green" type="color">#ff397705</item>
+    <item name="dark_grey" type="color">#222222</item>
+    <item name="dark_grey_2" type="color">#ff373737</item>
+    <item name="light_grey" type="color">#ffc7c7c7</item>
+    <item name="light_grey_2" type="color">#ffb4b4b4</item>
+
+
 </resources>

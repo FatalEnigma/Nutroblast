@@ -11,7 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import com.code4betterhackathon.nutroblast.Fragments.AboutFragment;
 import com.code4betterhackathon.nutroblast.Fragments.AddFoodFragment;
 import com.code4betterhackathon.nutroblast.Fragments.AnalyticsFragment;
-import com.code4betterhackathon.nutroblast.Fragments.SummaryFragment;
+import com.code4betterhackathon.nutroblast.Fragments.EditDetailsFragment;
 
 
 public class MainActivity extends ActionBarActivity
@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity
             case 0:
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, SummaryFragment.newInstance(position + 1))
+                        .replace(R.id.container, AnalyticsFragment.newInstance(position + 1))
                         .commit();
                 break;
 
@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity
             case 2:
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, AnalyticsFragment.newInstance(position + 1))
+                        .replace(R.id.container, EditDetailsFragment.newInstance(position + 1))
                         .commit();
                 break;
             case 3:
