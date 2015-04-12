@@ -9,4 +9,4 @@
     tools:context=".NavigationDrawerFragment"
     android:clickable="false"
     android:drawSelectorOnTop="false"
-    ></ListView>
+    android:textFilterEnabled="false"></ListView>
