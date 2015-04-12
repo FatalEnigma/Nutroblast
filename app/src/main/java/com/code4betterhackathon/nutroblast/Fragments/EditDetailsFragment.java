@@ -1,6 +1,8 @@
 package com.code4betterhackathon.nutroblast.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -30,7 +32,6 @@ public class EditDetailsFragment extends Fragment implements View.OnClickListene
     private Button acceptButton;
     private EditText nameEditText, ageEditText, heightEditText, weightEditText;
     private RadioGroup genderRadioGroup;
-    private RadioButton femaleButton;
     private Spinner spinner;
     private int[] checkBoxIDs = {R.id.ironCheckBox, R.id.calorieCheckBox, R.id.glucoseCheckBox, R.id.cholesterolCheckBox};
     private View rootView;
@@ -71,8 +72,8 @@ public class EditDetailsFragment extends Fragment implements View.OnClickListene
         heightEditText = (EditText) rootView.findViewById(R.id.heightEditText);
         weightEditText = (EditText) rootView.findViewById(R.id.weightEditText);
         genderRadioGroup = (RadioGroup) rootView.findViewById(R.id.genderRadioGroup);
-        femaleButton = (RadioButton) rootView.findViewById(R.id.femaleRadioButton);
         this.rootView = rootView;
+        loadUserDetails();
         return rootView;
     }
 
@@ -87,18 +88,21 @@ public class EditDetailsFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.updateDetailsButton:
-                if (performValidation()) {
-                    Toast.makeText(getActivity(), "All Valid", Toast.LENGTH_SHORT).show();
-                }
+                performValidation();
                 break;
         }
     }
 
-    private boolean performValidation() {
-        String name, age, height, weight;
-        boolean isMale = false, validationError = false;
+    private void performValidation() {
+        String name = null;
+        int age = -1;
+        int height = -1;
+        float weight = -1;
+        boolean isMale = false;
         boolean[] goals = new boolean[4];
         weightOptionEnum weightOptionEnum = EditDetailsFragment.weightOptionEnum.NONE;
+
+        boolean validationError = false;
 
         if (nameEditText.getText().toString().isEmpty()) {
             nameEditText.setError("You need to enter a name");
@@ -114,7 +118,7 @@ public class EditDetailsFragment extends Fragment implements View.OnClickListene
             ageEditText.setError("You age does not appear valid");
             validationError = true;
         } else {
-            age = ageEditText.getText().toString();
+            age = Integer.parseInt(ageEditText.getText().toString());
         }
 
         if (heightEditText.getText().toString().isEmpty()) {
@@ -124,17 +128,17 @@ public class EditDetailsFragment extends Fragment implements View.OnClickListene
             heightEditText.setError("Your height does not appear valid");
             validationError = true;
         } else {
-            height = heightEditText.getText().toString();
+            height = Integer.parseInt(heightEditText.getText().toString());
         }
 
         if (weightEditText.getText().toString().isEmpty()) {
             weightEditText.setError("You need to enter a weight");
             validationError = true;
-        } else if (Integer.parseInt(weightEditText.getText().toString()) < 30 || Integer.parseInt(weightEditText.getText().toString()) > 500) {
+        } else if (Float.parseFloat(weightEditText.getText().toString()) < 30 || Float.parseFloat(weightEditText.getText().toString()) > 500) {
             weightEditText.setError("Your weight does not appear valid");
             validationError = true;
         } else {
-            weight = weightEditText.getText().toString();
+            weight = Float.parseFloat(weightEditText.getText().toString());
         }
 
         if (genderRadioGroup.getCheckedRadioButtonId() == -1) {
@@ -164,6 +168,86 @@ public class EditDetailsFragment extends Fragment implements View.OnClickListene
             validationError = true;
         }
 
-        return !validationError;
+        if (!validationError) {
+            saveUserDetails(name, age, height, weight, isMale, goals, weightOptionEnum);
+        }
+    }
+
+    private void saveUserDetails(String name, int age, int height, float weight, Boolean isMale, boolean[] goals, weightOptionEnum weightOptionEnum) {
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                "com.code4betterhackathon.nutroblast", Context.MODE_PRIVATE);
+
+        prefs.edit()
+                .putString("name", name)
+                .putInt("age", age)
+                .putInt("height", height)
+                .putFloat("weight", weight)
+                .putBoolean("isMale", isMale)
+                .putBoolean("0", goals[0])
+                .putBoolean("2", goals[2])
+                .putBoolean("3", goals[3])
+                .putString("weightOptionEnum", weightOptionEnum.name())
+                .apply();
+
+        Toast.makeText(getActivity(), getString(R.string.details_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadUserDetails() {
+        String name = null;
+        int age = -1;
+        int height = -1;
+        float weight = -1;
+        boolean isMale = false;
+        boolean[] goals = new boolean[4];
+        weightOptionEnum weightOptionEnum = EditDetailsFragment.weightOptionEnum.NONE;
+
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                "com.code4betterhackathon.nutroblast", Context.MODE_PRIVATE);
+
+        name = prefs.getString("name", "");
+        age = prefs.getInt("age", -1);
+        height = prefs.getInt("height", -1);
+        weight = prefs.getFloat("weight", -1);
+        isMale = prefs.getBoolean("isMale", true);
+        goals[0] = prefs.getBoolean("0", false);
+        goals[2] = prefs.getBoolean("2", false);
+        goals[3] = prefs.getBoolean("3", false);
+        weightOptionEnum = EditDetailsFragment.weightOptionEnum.valueOf(prefs.getString("weightOptionEnum", "NONE"));
+
+        // Populate Fields
+        if (name != "") {
+            nameEditText.setText(name);
+        }
+        if (age != -1) {
+            ageEditText.setText(Integer.toString(age));
+        }
+        if (height != -1) {
+            heightEditText.setText(Integer.toString(height));
+        }
+        if (weight != -1) {
+            weightEditText.setText(Float.toString(weight));
+        }
+        if (isMale) {
+            genderRadioGroup.check(R.id.maleRadioButton);
+        } else {
+            genderRadioGroup.check(R.id.femaleRadioButton);
+        }
+        for (int x = 0; x < checkBoxIDs.length; x++) {
+            CheckBox checkBox = (CheckBox) rootView.findViewById(checkBoxIDs[x]);
+            if (x != 1) {
+                checkBox.setChecked(goals[x]);
+            } else {
+                switch (weightOptionEnum) {
+                    case WEIGHT_GAIN:
+                        spinner.setSelection(0);
+                        checkBox.setChecked(true);
+                        break;
+                    case WEIGHT_LOSS:
+                        spinner.setSelection(1);
+                        checkBox.setChecked(true);
+                        break;
+                }
+            }
+        }
     }
 }

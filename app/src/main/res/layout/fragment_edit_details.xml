@@ -76,11 +76,6 @@
                             android:layout_marginLeft="10dp"
                             android:maxLength="3" />
 
-                        <TableRow
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"></TableRow>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -165,11 +160,12 @@
                         <EditText
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
                             android:ems="10"
                             android:layout_marginLeft="10dp"
                             android:id="@+id/weightEditText"
-                            android:maxLength="3" />
+                            android:maxLength="4"
+                            android:nestedScrollingEnabled="false"
+                            android:inputType="numberDecimal" />
 
                         <TextView
                             android:layout_width="wrap_content"

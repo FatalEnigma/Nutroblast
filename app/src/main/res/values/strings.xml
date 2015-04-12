@@ -27,8 +27,7 @@
 
     <string name="focus_on_card">Focus On Goals</string>
     <string name="summary_report">Summary Report</string>
-    <!-- TODO: Remove or change this placeholder text -->
-   
+
     <string name="scanBarcode">Scan Barcode</string>
     <string name="searchFoods">Search Foods</string>
     <string name="addFood">Add Food</string>
@@ -50,4 +49,5 @@
     <!-- About Screen -->
     <string name="about">NutroBlast - Ulster Museum Hackathon 2015</string>
     <string name="version">Version 1.0</string>
+    <string name="details_saved">Details Saved Successfully!</string>
 </resources>
